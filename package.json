@@ -8,7 +8,7 @@
     "url": "https://github.com/ParsePlatform/parse-server-example"
   },
   "license": "MIT",
-  "dependencies": {    
+  "dependencies": {
     "babyparse": "^0.4.6",
     "base64-stream": "^0.1.3",
     "body-parser": "^1.18.2",

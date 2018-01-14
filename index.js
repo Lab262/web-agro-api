@@ -10,7 +10,6 @@ var FileStorageAdapter = require(path.join(__dirname, '/file-storage/file-storag
 var ErrorHandler = require(path.join(__dirname, '/error-handler/error-handler'));
 var EmailAdapter = require(path.join(__dirname, '/email-adapter/email-adapter-object'));
 var AuthenticationHandler = require(path.join(__dirname, '/authentication-handler/authentication-handler'));
-var FacebookWebhook = require(path.join(__dirname, '/cloud/facebook-webhook'));
 let appId = process.env.APP_ID || 'myAppId';
 
 module.exports.databaseUri = databaseUri;
@@ -48,7 +47,6 @@ app.use(bodyParser.urlencoded());
 app.use(AuthenticationHandler);
 
 app.use(ErrorHandler.errorHandler);
-app.use(FacebookWebhook);
 
 var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
