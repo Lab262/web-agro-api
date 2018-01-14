@@ -9,7 +9,6 @@ var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI || 'mongod
 var FileStorageAdapter = require(path.join(__dirname, '/file-storage/file-storage-adapter'));
 var ErrorHandler = require(path.join(__dirname, '/error-handler/error-handler'));
 var EmailAdapter = require(path.join(__dirname, '/email-adapter/email-adapter-object'));
-var AuthenticationHandler = require(path.join(__dirname, '/authentication-handler/authentication-handler'));
 let appId = process.env.APP_ID || 'myAppId';
 
 module.exports.databaseUri = databaseUri;
@@ -44,7 +43,6 @@ var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(AuthenticationHandler);
 
 app.use(ErrorHandler.errorHandler);
 
