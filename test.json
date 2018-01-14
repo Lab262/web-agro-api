@@ -1,0 +1,317 @@
+{
+  "faceAnnotations": [],
+  "landmarkAnnotations": [],
+  "logoAnnotations": [],
+  "labelAnnotations": [
+    {
+      "mid": "/m/07c1v",
+      "locale": "",
+      "description": "technology",
+      "score": 0.89054274559021,
+      "confidence": 0,
+      "topicality": 0,
+      "boundingPoly": null,
+      "locations": [],
+      "properties": []
+    },
+    {
+      "mid": "/m/0bs7_0t",
+      "locale": "",
+      "description": "electronic device",
+      "score": 0.8391692042350769,
+      "confidence": 0,
+      "topicality": 0,
+      "boundingPoly": null,
+      "locations": [],
+      "properties": []
+    },
+    {
+      "mid": "/m/01jwgf",
+      "locale": "",
+      "description": "product",
+      "score": 0.7913715839385986,
+      "confidence": 0,
+      "topicality": 0,
+      "boundingPoly": null,
+      "locations": [],
+      "properties": []
+    },
+    {
+      "mid": "/m/01yttv",
+      "locale": "",
+      "description": "audio equipment",
+      "score": 0.77009117603302,
+      "confidence": 0,
+      "topicality": 0,
+      "boundingPoly": null,
+      "locations": [],
+      "properties": []
+    },
+    {
+      "mid": "/m/03y18t",
+      "locale": "",
+      "description": "product design",
+      "score": 0.7288356423377991,
+      "confidence": 0,
+      "topicality": 0,
+      "boundingPoly": null,
+      "locations": [],
+      "properties": []
+    },
+    {
+      "mid": "/m/02mrp",
+      "locale": "",
+      "description": "electronics",
+      "score": 0.6915215253829956,
+      "confidence": 0,
+      "topicality": 0,
+      "boundingPoly": null,
+      "locations": [],
+      "properties": []
+    },
+    {
+      "mid": "/m/02mf1n",
+      "locale": "",
+      "description": "gadget",
+      "score": 0.6504133939743042,
+      "confidence": 0,
+      "topicality": 0,
+      "boundingPoly": null,
+      "locations": [],
+      "properties": []
+    },
+    {
+      "mid": "/m/02cwm",
+      "locale": "",
+      "description": "design",
+      "score": 0.6489945650100708,
+      "confidence": 0,
+      "topicality": 0,
+      "boundingPoly": null,
+      "locations": [],
+      "properties": []
+    },
+    {
+      "mid": "/m/0h91fqv",
+      "locale": "",
+      "description": "audio",
+      "score": 0.614959180355072,
+      "confidence": 0,
+      "topicality": 0,
+      "boundingPoly": null,
+      "locations": [],
+      "properties": []
+    },
+    {
+      "mid": "/m/039jq",
+      "locale": "",
+      "description": "glass",
+      "score": 0.5945988297462463,
+      "confidence": 0,
+      "topicality": 0,
+      "boundingPoly": null,
+      "locations": [],
+      "properties": []
+    }
+  ],
+  "textAnnotations": [],
+  "fullTextAnnotation": null,
+  "safeSearchAnnotation": {
+    "adult": "VERY_UNLIKELY",
+    "spoof": "VERY_UNLIKELY",
+    "medical": "VERY_UNLIKELY",
+    "violence": "VERY_UNLIKELY"
+  },
+  "imagePropertiesAnnotation": {
+    "dominantColors": {
+      "colors": [
+        {
+          "color": {
+            "red": 149,
+            "green": 154,
+            "blue": 150,
+            "alpha": null
+          },
+          "score": 0.1851445436477661,
+          "pixelFraction": 0.17287883162498474
+        },
+        {
+          "color": {
+            "red": 248,
+            "green": 88,
+            "blue": 126,
+            "alpha": null
+          },
+          "score": 0.14939944446086884,
+          "pixelFraction": 0.0037166825495660305
+        },
+        {
+          "color": {
+            "red": 182,
+            "green": 105,
+            "blue": 120,
+            "alpha": null
+          },
+          "score": 0.05812687426805496,
+          "pixelFraction": 0.0026547731831669807
+        },
+        {
+          "color": {
+            "red": 25,
+            "green": 25,
+            "blue": 27,
+            "alpha": null
+          },
+          "score": 0.012580448761582375,
+          "pixelFraction": 0.07826271653175354
+        },
+        {
+          "color": {
+            "red": 120,
+            "green": 122,
+            "blue": 116,
+            "alpha": null
+          },
+          "score": 0.12739680707454681,
+          "pixelFraction": 0.12127004563808441
+        },
+        {
+          "color": {
+            "red": 234,
+            "green": 98,
+            "blue": 129,
+            "alpha": null
+          },
+          "score": 0.07072138786315918,
+          "pixelFraction": 0.002017627703025937
+        },
+        {
+          "color": {
+            "red": 227,
+            "green": 108,
+            "blue": 137,
+            "alpha": null
+          },
+          "score": 0.05890549346804619,
+          "pixelFraction": 0.0016990548465400934
+        },
+        {
+          "color": {
+            "red": 85,
+            "green": 87,
+            "blue": 82,
+            "alpha": null
+          },
+          "score": 0.05154445767402649,
+          "pixelFraction": 0.08728894591331482
+        },
+        {
+          "color": {
+            "red": 217,
+            "green": 90,
+            "blue": 117,
+            "alpha": null
+          },
+          "score": 0.04954893887042999,
+          "pixelFraction": 0.0018052458763122559
+        },
+        {
+          "color": {
+            "red": 207,
+            "green": 119,
+            "blue": 137,
+            "alpha": null
+          },
+          "score": 0.046373724937438965,
+          "pixelFraction": 0.0021238187327980995
+        }
+      ]
+    }
+  },
+  "cropHintsAnnotation": {
+    "cropHints": [
+      {
+        "boundingPoly": {
+          "vertices": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 269,
+              "y": 0
+            },
+            {
+              "x": 269,
+              "y": 479
+            },
+            {
+              "x": 0,
+              "y": 479
+            }
+          ]
+        },
+        "confidence": 0.7999999523162842,
+        "importanceFraction": 1
+      }
+    ]
+  },
+  "webDetection": {
+    "webEntities": [
+      {
+        "entityId": "/m/01yttv",
+        "score": 1.1954169273376465,
+        "description": "Audio equipment"
+      },
+      {
+        "entityId": "/m/02cwm",
+        "score": 0.8838679194450378,
+        "description": "Design"
+      },
+      {
+        "entityId": "/m/03y18t",
+        "score": 0.8418973088264465,
+        "description": "Product design"
+      },
+      {
+        "entityId": "/m/0c_jw",
+        "score": 0.7182987928390503,
+        "description": "Furniture"
+      },
+      {
+        "entityId": "/m/039jq",
+        "score": 0.4970944821834564,
+        "description": "Glass"
+      },
+      {
+        "entityId": "/m/0mwc",
+        "score": 0.4927683472633362,
+        "description": "Angle"
+      },
+      {
+        "entityId": "/m/02mf1n",
+        "score": 0.4876784682273865,
+        "description": "Gadget"
+      },
+      {
+        "entityId": "/m/02mrp",
+        "score": 0.4442022740840912,
+        "description": "Electronics"
+      },
+      {
+        "entityId": "/m/01jwgf",
+        "score": 0.38589999079704285,
+        "description": "Product"
+      },
+      {
+        "entityId": "/m/06qc5",
+        "score": 0.366100013256073,
+        "description": "Sound"
+      }
+    ],
+    "fullMatchingImages": [],
+    "partialMatchingImages": [],
+    "pagesWithMatchingImages": []
+  },
+  "error": null
+}

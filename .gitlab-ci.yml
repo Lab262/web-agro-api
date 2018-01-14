@@ -1,0 +1,45 @@
+image: node:6.5.0
+cache:
+  paths:
+  - node_modules/
+production:
+  type: deploy
+  script:
+  - apt-get update -qy
+  - echo "Y" |apt-get install libssl-dev
+  - apt-get install -y rubygems
+  - gem install dpl
+  - dpl --provider=heroku --app=web-agro-api --api-key=$HEROKU_PRODUCTION_API_KEY
+  only:
+  - master
+
+# development:
+#   type: deploy
+#   script:
+#   - apt-get update -qy
+#   - echo "Y" |apt-get install libssl-dev
+#   - apt-get install -y rubygems
+#   - gem install dpl
+#   - dpl --provider=heroku --app=faceid-admin-api --api-key=$HEROKU_PRODUCTION_API_KEY
+#   only:
+#   - dev
+# test:
+#   type: deploy
+#   script:
+#   - apt-get update -qy
+#   - echo "Y" |apt-get install libssl-dev
+#   - apt-get install -y rubygems
+#   - gem install dpl
+#   - dpl --provider=heroku --app=api-55lab-test --api-key=$HEROKU_PRODUCTION_API_KEY
+#   only:
+#   - test
+# dev:
+#   type: deploy
+#   script:
+#   - apt-get update -qy
+#   - echo "Y" |apt-get install libssl-dev
+#   - apt-get install -y rubygems
+#   - gem install dpl
+#   - dpl --provider=heroku --app=api-55lab-dev --api-key=$HEROKU_PRODUCTION_API_KEY
+#   only:
+#   - dev
