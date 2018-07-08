@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<div id=":iv">
+  New User
+  {{password}}
+  {{username}}
+</div>
+
+</html>
