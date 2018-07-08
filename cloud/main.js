@@ -3,10 +3,16 @@ const { AppCache } = require('parse-server/lib/cache');
 const MailgunAdapter = AppCache.get(process.env.APP_ID || "myAppId").userController.adapter;
 
 Parse.Cloud.afterSave("Cooperative", function (request) {
+    let isFromApproval = request.original && !request.original.attributes.isActive && request.object.attributes.isActive;
     let isNew = request.object.attributes.updatedAt === request.object.attributes.createdAt;
     let isActive = request.object.attributes.isActive;
     let email = request.object.attributes.email;
-    if (isNew && isActive) { //Was created by the sysadmin 
+    if (isActive && (isNew || isFromApproval)) { //Was created by the sysadmin 
+
+        var loginAccepted = ""
+        if (isFromApproval) {
+            loginAccepted = "Parabéns o seu registro foi aprovado. \n"
+        }
         var randomPassword = Math.random().toString(36).slice(-8);
         var isNewUser = false;
         var query = new Parse.Query(Parse.User);
@@ -39,7 +45,8 @@ Parse.Cloud.afterSave("Cooperative", function (request) {
                     cooperativeName: request.object.attributes.name,
                     username: email,
                     password: password,
-                    senhaLabel: senhaLabel
+                    senhaLabel: senhaLabel,
+                    loginAccepted: loginAccepted
                 }
             })
         }).then(sent => {
