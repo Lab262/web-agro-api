@@ -5,14 +5,10 @@ cache:
 
 before_script:
   - npm install
-  
+
 production:
   type: deploy
-  script:
-  - apt-get update -qy
-  - echo "Y" |apt-get install libssl-dev
-  - apt-get install -y rubygems
-  - gem install dpl
+  script: 
   - dpl --provider=heroku --app=web-agro-api --api-key=$HEROKU_PRODUCTION_API_KEY
   only:
   - master
