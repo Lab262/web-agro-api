@@ -54,3 +54,24 @@ Parse.Cloud.afterSave("Cooperative", function (request) {
         }).catch(error => console.log(error));
     }
 });
+
+Parse.Cloud.afterSave("SalesTransaction", function (request, response) {
+    var salesObject = request.object;
+
+    salesObject.get("producer").fetch().then(function (producerResult) {
+        producerResult["lastTransaction"] = salesObject.get("transactionDate")
+        saveProducer(producerResult);
+    }, function (err) {
+        response.error("ERROR" + err)
+    });
+});
+
+function saveProducer(producer) {
+    producer.save({
+        success: function (producerUpdated) {
+            response.success(producerUpdated);
+        }, error: function (err) {
+            response.error("Error: " + error.code + " " + error.message);
+        }
+    });
+}
