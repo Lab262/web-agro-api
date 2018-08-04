@@ -57,24 +57,14 @@ Parse.Cloud.afterSave("Cooperative", function (request) {
 
 Parse.Cloud.afterSave("SalesTransaction", function (request, response) {
     var salesObject = request.object;
-
     salesObject.get("producer").fetch().then(function (producerResult) {
-        producerResult["lastTransaction"] = salesObject.get("transactionDate")
-        saveProducer(producerResult);
+        producerResult.set("lastTransaction", salesObject.get("transactionDate"))
+        producerResult.save()
     }, function (err) {
         response.error("ERROR" + err)
     });
 });
 
-function saveProducer(producer) {
-    producer.save({
-        success: function (producerUpdated) {
-            response.success(producerUpdated);
-        }, error: function (err) {
-            response.error("Error: " + error.code + " " + error.message);
-        }
-    });
-}
 Parse.Cloud.afterSave("Producer", function (request) {
     let isNew = request.object.attributes.updatedAt === request.object.attributes.createdAt;
     let email = request.object.attributes.email;
