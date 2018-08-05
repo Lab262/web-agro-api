@@ -65,6 +65,76 @@ Parse.Cloud.afterSave("SalesTransaction", function (request, response) {
     });
 });
 
+Parse.Cloud.define("getPurchaseTransactionAmount", function (request, response) {
+    let result = getPurchaseTransactionAmount(request, response)
+    response.success(result) 
+});
+
+Parse.Cloud.define("getSalesTransactionAmount", function (request, response) {
+    let result = getSalesTransactionAmount(request, response)
+    response.success(result) 
+});
+
+Parse.Cloud.define("getStock", function (request, response) {
+    let salesTransaction = getSalesTransactionAmount(request, response)
+    let purchaseTransaction = getPurchaseTransactionAmount(request, response)
+    let wastTransaction = getWastTransactionAmount(request, response)
+    let result = (salesTransaction - purchaseTransaction) - wastTransaction
+
+    response.success(result) 
+});
+
+function getPurchaseTransactionAmount(request, response) {
+    fetchPurchaseTransaction(request.params.cooperative, request.params.producer).then(function (purchaseTransaction) {
+        let amount = purchaseTransaction.get("productAmount")
+        let amountScale = purchaseTransaction.get("amountScale")
+        
+        return amount * amountScale
+    }, function (err) {
+        response.error("ERROR: " + err) 
+    });
+}
+
+function getSalesTransactionAmount(request, response) {
+    fetchSalesTransaction(request.params.cooperative, request.params.producer).then(function (salesTransaction) {
+        let amount = salesTransaction.get("productAmount")
+        let amountScale = salesTransaction.get("amountScale")
+        
+        return amount * amountScale
+    }, function (err) {
+        response.error("ERROR: " + err) 
+    });
+}
+
+function getWastTransactionAmount(request, response) {
+    fetchWastTransaction(request.params.cooperative, request.params.product).then(function (wastTransaction) {
+        return wastTransaction.get("amount")
+    }, function (err) {
+        response.error("ERROR: " + err) 
+    });
+}
+
+var fetchSalesTransaction = function (cooperative, producer) {
+    var query = new Parse.Query("SalesTransaction");
+    query.equalTo("cooperative", cooperative);
+    query.equalTo("producer", producer)
+    return query.find();
+};
+
+var fetchPurchaseTransaction = function (cooperative, producer) {
+    var query = new Parse.Query("PurchaseTransaction");
+    query.equalTo("cooperative", cooperative);
+    query.equalTo("producer", producer)
+    return query.find();
+};
+
+var fetchWastTransaction = function (cooperative, product) {
+    var query = new Parse.Query("WasteTransaction");
+    query.equalTo("cooperative", cooperative)
+    query.equalTo("producer", producer)
+    return query.find();
+};
+
 Parse.Cloud.afterSave("Producer", function (request) {
     let isNew = request.object.attributes.updatedAt === request.object.attributes.createdAt;
     let email = request.object.attributes.email;
