@@ -19,6 +19,7 @@
     "googleapis": "^18.0.0",
     "js2xmlparser": "^3.0.0",
     "kerberos": "~0.0.x",
+    "moment": "^2.22.2",
     "mongodb": "^2.2.33",
     "parse": "~1.8.0",
     "parse-server": "*",
