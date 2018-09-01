@@ -5,12 +5,7 @@ Parse.Cloud.afterSave("SalesTransaction", function (request, response) {
     //1. criar sales transaction - supply nao existe no dia
     //2. criar sales transaction supply ja  existe no dia
     //3. criar sales transaction nenhum supply no sistema 
-    salesObject.get("producer").fetch().then(function (producerResult) {
-        producerResult.set("lastTransaction", salesObject.get("transactionDate"))
-        producerResult.save()
-    }, function (err) {
-        response.error("ERROR" + err)
-    });
+
 });
 
 Parse.Cloud.afterSave("PurchaseTransaction", function (request, response) {
@@ -18,12 +13,7 @@ Parse.Cloud.afterSave("PurchaseTransaction", function (request, response) {
     //1. criar sales transaction - supply nao existe no dia
     //2. criar sales transaction supply ja existe no dia
     //3. criar sales transaction nenhum supply no sistema 
-    salesObject.get("producer").fetch().then(function (producerResult) {
-        producerResult.set("lastTransaction", salesObject.get("transactionDate"))
-        producerResult.save()
-    }, function (err) {
-        response.error("ERROR" + err)
-    });
+
 });
 
 
