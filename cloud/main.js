@@ -26,7 +26,7 @@ Parse.Cloud.afterSave("Cooperative", function (request) {
                 user.set('username', email);
                 user.set('password', randomPassword);
             }
-            user.addUnique('cooperatives', {
+            user.addUnique('cooperativesRoles', {
                 "cooperativeId": request.object.id,
                 "userRole": "admin"
             })
@@ -95,7 +95,7 @@ Parse.Cloud.afterSave("Producer", function (request) {
                 user.set('username', email);
                 user.set('password', randomPassword);
             }
-            user.addUnique('cooperatives', {
+            user.addUnique('cooperativesRoles', {
                 "cooperativeId": request.object.id,
                 "userRole": "admin"
             })
