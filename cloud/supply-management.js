@@ -1,23 +1,5 @@
 var Moment = require('moment');
 
-Parse.Cloud.afterSave("SalesTransaction", function (request, response) {
-    var salesObject = request.object;
-    //1. criar sales transaction - supply nao existe no dia
-    //2. criar sales transaction supply ja  existe no dia
-    //3. criar sales transaction nenhum supply no sistema 
-
-});
-
-Parse.Cloud.afterSave("PurchaseTransaction", function (request, response) {
-    var salesObject = request.object;
-    //1. criar sales transaction - supply nao existe no dia
-    //2. criar sales transaction supply ja existe no dia
-    //3. criar sales transaction nenhum supply no sistema 
-
-});
-
-
-
 /*
 @productId: string,
 @cooperativeId: string,
@@ -35,7 +17,7 @@ function updateSupplyStatistics(productId, cooperativeId, measuredSupply) {
 
     var promise = new Parse.Promise();
 
-    var transactionDate = Moment(new Date()).add(1, 'day');
+    var transactionDate = Moment(new Date());
     var startDate = Moment(transactionDate).startOf('day').toDate()
     var endDate = Moment(transactionDate).endOf('day').toDate()
 
@@ -62,22 +44,22 @@ function updateSupplyStatistics(productId, cooperativeId, measuredSupply) {
                 })
             } else {
                 getTransactionAmountByProduct("SalesTransaction", cooperative, product, startDate, endDate).then(salesAmount => {
-                    newSupplyStatistics.set('totalSales', salesAmount)
+                    supplyStatistic.set('totalSales', salesAmount)
                     return getTransactionAmountByProduct("PurchaseTransaction", cooperative, product, startDate, endDate)
                 }).then(purchaseAmount => {
-                    newSupplyStatistics.set('totalPurchase', purchaseAmount)
-                    var salesPurchasesDifference = newSupplyStatistics.get('totalPurchase') - newSupplyStatistics.get('totalSales')
-                    newSupplyStatistics.set('salesPurchasesDifference', salesPurchasesDifference)
+                    supplyStatistic.set('totalPurchase', purchaseAmount)
+                    var salesPurchasesDifference = supplyStatistic.get('totalPurchase') - supplyStatistic.get('totalSales')
+                    supplyStatistic.set('salesPurchasesDifference', salesPurchasesDifference)
 
                     if (supplyStatistic) {
                         var estimatedSupply = salesPurchasesDifference + supplyStatistic.get('measuredSupply'); //sales diff of today + measured of last day
-                        newSupplyStatistics.set('estimatedSupply', estimatedSupply);
+                        supplyStatistic.set('estimatedSupply', estimatedSupply);
                     } else {
-                        newSupplyStatistics.set('estimatedSupply', salesPurchasesDifference);
+                        supplyStatistic.set('estimatedSupply', salesPurchasesDifference);
                     }
-                    var supplyWaste = newSupplyStatistics.get('measuredSupply') - newSupplyStatistics.get('estimatedSupply');
-                    newSupplyStatistics.set('supplyWaste', supplyWaste);
-                    return newSupplyStatistics.save()
+                    var supplyWaste = supplyStatistic.get('measuredSupply') - supplyStatistic.get('estimatedSupply');
+                    supplyStatistic.set('supplyWaste', supplyWaste);
+                    return supplyStatistic.save()
                 }).then(result => {
                     promise.resolve(result);
                 }).catch(err => {
@@ -150,3 +132,4 @@ function getTransactionAmountByProduct(transactionClass, cooperative, product, s
     return promise;
 }
 
+exports.updateSupplyStatistics = updateSupplyStatistics

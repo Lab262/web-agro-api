@@ -1,4 +1,4 @@
-require('./supply-management');
+var SupplyManagment = require('./supply-management');
 let path = require('path');
 const { AppCache } = require('parse-server/lib/cache');
 const MailgunAdapter = AppCache.get(process.env.APP_ID || "myAppId").userController.adapter;
@@ -64,6 +64,7 @@ Parse.Cloud.afterSave("SalesTransaction", function (request, response) {
     }, function (err) {
         response.error("ERROR" + err)
     });
+    SupplyManagment.updateSupplyStatistics(salesObject.attributes.product.id, salesObject.attributes.cooperative.id)
 });
 
 Parse.Cloud.afterSave("PurchaseTransaction", function (request, response) {
@@ -74,6 +75,7 @@ Parse.Cloud.afterSave("PurchaseTransaction", function (request, response) {
     }, function (err) {
         response.error("ERROR" + err)
     });
+    SupplyManagment.updateSupplyStatistics(salesObject.attributes.product.id, salesObject.attributes.cooperative.id)
 });
 
 
