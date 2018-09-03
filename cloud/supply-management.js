@@ -1,5 +1,51 @@
 var Moment = require('moment');
 
+
+Parse.Cloud.define("getWasteStatistcsForProduct", function (request, response) {
+
+    var startDate = Moment(new Date()).endOf('day').toDate()
+    var endDate = Moment(new Date()).subtract(request.params.dayRange, 'day').startOf('day').toDate()
+    var dates = enumerateDaysBetweenDates(endDate, startDate)
+
+    var product = new Parse.Object('Product');
+    product.id = request.params.product;
+    var query = new Parse.Query('SupplyStatistics')
+    query.equalTo('product', product);
+    query.descending('createdAt');
+    query.greaterThanOrEqualTo('createdAt', endDate);
+    query.lessThanOrEqualTo('createdAt', startDate);
+    query.find().then(supplyStatistics => {
+
+        var labels = []
+        var data = []
+        dates.forEach(date => {
+            var currDateMoment = Moment(date);
+            var currentStatistics = supplyStatistics.filter(statistic => Moment(statistic.get('createdAt')).isSame(currDateMoment, 'day'))
+            var day = currDateMoment.format('DD/MM')
+            var wasteAmount = currentStatistics.length > 0 && currentStatistics[0].get('supplyWaste') ? currentStatistics[0].get('supplyWaste') : 0
+            labels.push(day)
+            data.push(wasteAmount);
+        })
+        data = [data]
+        response.success({ labels, data });
+
+    }).catch(err => {
+        console.log(err);
+        response.error(err)
+    })
+
+})
+
+function enumerateDaysBetweenDates(startDate, endDate) {
+    var dates = [];
+    var currDate = Moment(startDate).startOf('day');
+    var lastDate = Moment(endDate).startOf('day');
+    while (currDate.add(1, 'days').diff(lastDate) <= 0) {
+        dates.push(currDate.clone().toDate());
+    }
+    return dates;
+};
+
 Parse.Cloud.define("getCurrentSupplyStatistics", function (request, response) {
 
     var cooperative = new Parse.Object('Cooperative');
