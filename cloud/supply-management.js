@@ -1,5 +1,47 @@
 var Moment = require('moment');
 
+Parse.Cloud.define("getCurrentSupplyStatistics", function (request, response) {
+
+    var cooperative = new Parse.Object('Cooperative');
+    cooperative.id = request.params.cooperativeId;
+    getSupplyStatisticsForProduct(request.params.products, 0, cooperative, []).then(result => {
+        response.success(result);
+    }).catch(error => {
+        console.log(error);
+        response.error(error)
+    });
+})
+
+function getSupplyStatisticsForProduct(productArray, index, cooperative, statisticsArray, promise) {
+
+    if (!promise) {
+        promise = new Parse.Promise();
+    }
+
+    var currentProduct = productArray[index];
+    var product = new Parse.Object('Product');
+    product.id = currentProduct;
+
+    var query = new Parse.Query('SupplyStatistics')
+    query.equalTo('cooperative', cooperative);
+    query.equalTo('product', product);
+    query.descending('createdAt');
+    query.first().then(supplyStatistic => {
+        statisticsArray.push({ statistic: supplyStatistic, product: product.id })
+        if (index < productArray.length - 1) {
+            var newIndex = index + 1;
+            return getSupplyStatisticsForProduct(productArray, newIndex, cooperative, statisticsArray, promise)
+        } else {
+            promise.resolve(statisticsArray)
+        }
+    }).catch(err => {
+        console.log(err);
+        promise.reject(err);
+    })
+    return promise;
+
+}
+
 /*
 @productId: string,
 @cooperativeId: string,
@@ -71,7 +113,7 @@ function updateSupplyStatistics(productId, cooperativeId, measuredSupply) {
             var newSupplyStatistics = new Parse.Object('SupplyStatistics');
             newSupplyStatistics.set('product', product);
             newSupplyStatistics.set('cooperative', cooperative);
-            
+
             getTransactionAmountByProduct("SalesTransaction", cooperative, product, startDate, endDate).then(salesAmount => {
                 newSupplyStatistics.set('totalSales', salesAmount)
                 return getTransactionAmountByProduct("PurchaseTransaction", cooperative, product, startDate, endDate)
