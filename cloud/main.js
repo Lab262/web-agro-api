@@ -96,8 +96,9 @@ Parse.Cloud.afterSave("Producer", function (request) {
                 user.set('password', randomPassword);
             }
             user.addUnique('cooperativesRoles', {
-                "cooperativeId": request.object.id,
-                "userRole": "admin"
+                "cooperativeId": request.object.attributes.cooperative.id,
+                "userRole": "producer",
+                "producerId": request.object.id
             })
             user.save(null, { useMasterKey: true })
         }).then((user) => {
