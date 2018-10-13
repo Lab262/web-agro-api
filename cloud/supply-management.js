@@ -199,14 +199,14 @@ function getTransactionAmountByProduct(transactionClass, cooperative, product, s
     var query = new Parse.Query(transactionClass);
     query.equalTo("cooperative", cooperative);
     query.equalTo("product", product);
-    query.include('product.amountScale');
+    query.include('product.scale');
     query.greaterThanOrEqualTo('transactionDate', startDate);
     query.lessThanOrEqualTo('transactionDate', endDate);
     query.find().then(function (transaction) {
         if (transaction && transaction.length > 0) {
             let transactionAmount = transaction.reduce((sumAmount, currentObject) => {
                 let amount = currentObject.get("productAmount")
-                let amountScale = currentObject.get('product').get("amountScale")
+                let amountScale = currentObject.get('product').get("scale").get('scaleProportion')
                 let transactionAmount = parseFloat(amount) * parseFloat(amountScale);
                 return sumAmount + transactionAmount
             }, 0)
