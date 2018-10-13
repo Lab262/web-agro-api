@@ -179,3 +179,21 @@ Parse.Cloud.define("getStock", function (request, response) {
 
     response.success(result)
 });
+
+Parse.Cloud.afterDelete("Product", function (request) {
+    var query = new Parse.Query("PurchaseTransaction");
+    query.equalTo("product", request.object);
+    query.find()
+        .then(Parse.Object.destroyAll)
+        .catch(function (error) {
+            console.error("Error finding related comments " + error.code + ": " + error.message);
+        });
+
+    query = new Parse.Query("SalesTransaction");
+    query.equalTo("product", request.object);
+    query.find()
+        .then(Parse.Object.destroyAll)
+        .catch(function (error) {
+            console.error("Error finding related comments " + error.code + ": " + error.message);
+        });
+});
